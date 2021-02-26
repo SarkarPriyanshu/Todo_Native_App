@@ -1,12 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 import InputTodo from "./components/inputTodo";
 import TodoListItem from "./components/todolistitem";
+import ModelButton from "./components/modelbutton";
+import styles from "./style";
 
 export default function App() {
   const [tasklist, setTaskist] = useState([]);
   const [task, setTask] = useState("");
+  const [visible, setVisible] = useState(false);
 
   function onChangeHander(value) {
     setTask(value);
@@ -14,19 +17,26 @@ export default function App() {
 
   function handleButtonPress() {
     setTaskist((preTask) => [...preTask, task]);
+    setVisible(false);
   }
 
   function RemoveItem(value) {
     setTaskist((preTaskList) => {
-      return preTaskList.filter((item) => item !== value);
+      return preTaskList.filter((item, index) => index !== value);
     });
   }
+
+  const setModelVisibility = () => {
+    setVisible(true);
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.Title}>Todo List</Text>
       {/* Todo container */}
+      <ModelButton setModelVisibility={setModelVisibility} />
       <InputTodo
+        visible={visible}
         onChangeHander={onChangeHander}
         onButtonPressed={handleButtonPress}
       />
@@ -36,15 +46,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  Title: {
-    fontSize: 30,
-  },
-});

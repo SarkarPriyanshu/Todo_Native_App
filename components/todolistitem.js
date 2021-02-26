@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity, ScrollView, View } from "react-native";
+import styles from "../style";
 
 export default function TodoListItem(props) {
   return (
@@ -16,7 +11,7 @@ export default function TodoListItem(props) {
             props.List.map((item, index) => {
               return (
                 <>
-                  <TouchableOpacity onPress={() => props.Remove(item)}>
+                  <TouchableOpacity onPress={() => props.Remove(index)}>
                     <Text key={index} style={styles.list}>
                       {item}
                     </Text>
@@ -29,18 +24,3 @@ export default function TodoListItem(props) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  list: {
-    minWidth: 300,
-    padding: 16,
-    marginTop: 16,
-    borderColor: "#bbb",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 10,
-  },
-  listContainer: {
-    maxHeight: 300,
-  },
-});
